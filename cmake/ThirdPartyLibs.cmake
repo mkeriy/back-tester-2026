@@ -1,4 +1,5 @@
 include(ExternalProject)
+include(FetchContent)
 
 # Passed to CMake-based libraries to support Intel compiler.
 set(FORWARDED_CMAKE_ARGS
@@ -176,4 +177,19 @@ if(UNIX AND NOT APPLE)
     )
 else()
     target_link_libraries(${TGT} PUBLIC INTERFACE ${_ABSL_LIBS})
+endif()
+
+# ---------------------------------------------------------------------------------------
+# pybind11 — Python/C++ bindings (header-only core + CMake helpers)
+if(BUILD_PYTHON_BINDINGS)
+    # Note: intentionally NOT using SOURCE_DIR under 3rdparty/ because
+    # GenerateVersionFile.cmake scans that directory and would treat
+    # "pybind11" as a required build target, causing a link error.
+    FetchContent_Declare(pybind11
+        GIT_REPOSITORY https://github.com/pybind/pybind11.git
+        GIT_TAG        v2.13.6
+        GIT_SHALLOW    TRUE
+        GIT_PROGRESS   TRUE
+    )
+    FetchContent_MakeAvailable(pybind11)
 endif()

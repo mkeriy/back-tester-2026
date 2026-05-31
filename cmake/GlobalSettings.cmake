@@ -6,6 +6,7 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/Modules)
 
 option(BUILD_TESTS "Build tests" ON)
 option(BUILD_BENCHMARKS "Build benchmarks" ON)
+option(BUILD_PYTHON_BINDINGS "Build Python bindings (requires Python dev headers)" ON)
 
 # Choose build type
 if(NOT CMAKE_BUILD_TYPE)
